@@ -12,7 +12,7 @@ peer: `react`, `react-dom`, `@mui/material`, `@emotion/react`, `@emotion/styled`
 ## 무엇을 해 주는가
 
 - **한 컴포넌트, 두 표현** — 데스크탑=앵커 팝퍼(바깥 클릭이면 취소), 모바일=중앙 다이얼로그(폭 `min(92vw, 420px)`).
-- **모바일 확대** — 모바일에서는 제목 19 / 버튼 18·최소높이 56px 로 키운다(호출부가 더 크게 주면 그 값).
+- **모바일 확대** — 모바일에서는 제목 19 / 버튼 19·최소높이 56px·세로여백 1.5 로 키운다(호출부가 더 크게 주면 그 값).
 - **터치 ghost click 방어** — 확인 직후 같은 자리로 떨어지는 합성 클릭을 한 번 삼킨다.
 - **클릭 전파 차단** — portal 로 그려져도 React 이벤트는 트리를 타고 오르므로, 확인/취소/배경 클릭이 앵커를 품은 카드·행의 `onClick` 까지 닿지 않게 끊는다.
 
@@ -36,6 +36,7 @@ interface ConfirmActionPopperProps {
     titleFontSize?: number;
     actionFontSize?: number;
     actionMinHeight?: number;
+    actionPaddingY?: number;
     zIndex?: number;
     isMobile?: boolean;
     onCancel: () => void;

@@ -25,8 +25,9 @@
 | `minWidth` | [`number`](#크기--minwidth--minheight--폰트--버튼-높이) | `160` | 팝퍼 최소 폭(데스크탑) |
 | `minHeight` | [`number`](#크기--minwidth--minheight--폰트--버튼-높이) | — | 팝퍼 최소 높이(데스크탑) |
 | `titleFontSize` | [`number`](#크기--minwidth--minheight--폰트--버튼-높이) | `17` | 제목 폰트 크기 |
-| `actionFontSize` | [`number`](#크기--minwidth--minheight--폰트--버튼-높이) | `16` | 버튼 폰트 크기 |
+| `actionFontSize` | [`number`](#크기--minwidth--minheight--폰트--버튼-높이) | `17` | 버튼 폰트 크기 |
 | `actionMinHeight` | [`number`](#크기--minwidth--minheight--폰트--버튼-높이) | `44` | 버튼 최소 높이 |
+| `actionPaddingY` | [`number`](#크기--minwidth--minheight--폰트--버튼-높이) | `1` | 버튼 세로 여백(MUI spacing) |
 | `zIndex` | [`number`](#배치--placement--zindex) | `1300` | z-index |
 | `isMobile` | [`boolean`](#모바일-판정--ismobile) | 자동(테마 `lg` 미만) | 모바일 판정 강제 |
 | `onCancel` | [`() => void`](#콜백--onconfirm--oncancel) | — | 취소 |
@@ -49,8 +50,9 @@
 | 항목 | 데스크탑 기본 | 모바일 하한 |
 | --- | --- | --- |
 | 제목 폰트 | 17 | 19 |
-| 버튼 폰트 | 16 | 18 |
+| 버튼 폰트 | 17 | 19 |
 | 버튼 최소 높이 | 44 | 56 |
+| 버튼 세로 여백 | 1 | 1.5 |
 | 폭 | `minWidth`(기본 160) | `min(92vw, 420px)` 고정 |
 
 호출부가 하한보다 큰 값을 주면 그 값을 쓴다(`Math.max`).

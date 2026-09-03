@@ -18,6 +18,7 @@ function ConfirmActionBody({
     titleFontSize,
     actionFontSize,
     actionMinHeight,
+    actionPaddingY,
     onCancel,
     onConfirm,
 }: ConfirmActionBodyProps) {
@@ -46,7 +47,7 @@ function ConfirmActionBody({
                     color="inherit"
                     onClick={handleCancel}
                     fullWidth
-                    sx={{ fontSize: actionFontSize, minHeight: actionMinHeight, fontWeight: 700 }}
+                    sx={{ fontSize: actionFontSize, minHeight: actionMinHeight, py: actionPaddingY, fontWeight: 700 }}
                 >
                     {cancelText}
                 </Button>
@@ -56,7 +57,7 @@ function ConfirmActionBody({
                     color="primary"
                     onClick={handleConfirm}
                     fullWidth
-                    sx={{ fontSize: actionFontSize, minHeight: actionMinHeight, fontWeight: 700 }}
+                    sx={{ fontSize: actionFontSize, minHeight: actionMinHeight, py: actionPaddingY, fontWeight: 700 }}
                 >
                     {confirmText}
                 </Button>
@@ -77,8 +78,9 @@ export function ConfirmActionPopper({
     minWidth = 160,
     minHeight,
     titleFontSize = 17,
-    actionFontSize = 16,
+    actionFontSize = 17,
     actionMinHeight = 44,
+    actionPaddingY = 1,
     zIndex = 1300,
     isMobile,
     onCancel,
@@ -87,8 +89,8 @@ export function ConfirmActionPopper({
     // 소비처가 자체 모바일 판정을 쓰면(레이아웃 기준이 다를 수 있다) 그 값을 우선한다.
     const detectedMobile = useIsMobile();
     const mobile = isMobile ?? detectedMobile;
-    // 모바일 가운데 다이얼로그는 팝퍼 기본값(제목 17 / 버튼 16·44px)으로는 작아 손가락으로 누르기 불편하다 —
-    // 호출부가 더 크게 지정하지 않았으면 제목 19 / 버튼 18·56px 로 키운다(데스크탑 팝퍼는 그대로).
+    // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 호출부가 더 크게
+    // 지정하지 않았으면 제목 19 / 버튼 19·최소높이 56px·세로여백 1.5 로 키운다(데스크탑 팝퍼는 그대로).
     const body = (
         <ConfirmActionBody
             title={title}
@@ -96,8 +98,9 @@ export function ConfirmActionPopper({
             confirmText={confirmText}
             cancelText={cancelText}
             titleFontSize={mobile ? Math.max(titleFontSize, 19) : titleFontSize}
-            actionFontSize={mobile ? Math.max(actionFontSize, 18) : actionFontSize}
+            actionFontSize={mobile ? Math.max(actionFontSize, 19) : actionFontSize}
             actionMinHeight={mobile ? Math.max(actionMinHeight, 56) : actionMinHeight}
+            actionPaddingY={mobile ? Math.max(actionPaddingY, 1.5) : actionPaddingY}
             onCancel={onCancel}
             onConfirm={onConfirm}
         />
