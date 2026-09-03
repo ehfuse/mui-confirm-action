@@ -6,7 +6,10 @@ import type { PopperProps } from "@mui/material/Popper";
 /** ConfirmActionPopper 속성이다. */
 export interface ConfirmActionPopperProps {
     open: boolean; // 열림 여부
-    anchorEl: HTMLElement | null; // 앵커(데스크탑 팝퍼 기준 — 모바일 다이얼로그는 쓰지 않는다)
+    // 앵커(데스크탑 팝퍼 기준 — 모바일 다이얼로그는 쓰지 않는다).
+    // MUI Popper 와 같은 타입이라 가상 앵커({ getBoundingClientRect })도 그대로 넘길 수 있다
+    // (메일 목록의 행 우클릭 좌표처럼 실제 DOM 요소가 없는 자리).
+    anchorEl: PopperProps["anchorEl"];
     title?: ReactNode; // 확인 제목
     content?: ReactNode; // 제목과 버튼 사이에 렌더할 추가 콘텐츠(사유 입력칸 등)
     confirmText?: string; // 확인 버튼 문구

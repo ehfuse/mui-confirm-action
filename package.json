@@ -1,6 +1,6 @@
 {
     "name": "@ehfuse/mui-confirm-action",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "description": "Adaptive confirm UI for MUI — anchored popper on desktop, centered dialog on mobile, with touch ghost-click protection",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
@@ -37,7 +37,7 @@
         "url": "https://github.com/ehfuse/mui-confirm-action.git"
     },
     "publishConfig": {
-        "access": "restricted"
+        "access": "public"
     },
     "peerDependencies": {
         "@emotion/react": "^11.0.0",
