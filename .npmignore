@@ -1,0 +1,25 @@
+# Source files
+src/
+
+# Example project
+example/
+
+# Config files
+tsconfig.json
+tsconfig.build.json
+build.js
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Development files
+*.log
+.DS_Store
+Thumbs.db
+coverage/
+
+# Git
+.git/
+.github/

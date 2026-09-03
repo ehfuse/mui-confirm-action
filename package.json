@@ -1,0 +1,60 @@
+{
+    "name": "@ehfuse/mui-confirm-action",
+    "version": "0.1.0",
+    "description": "Adaptive confirm UI for MUI — anchored popper on desktop, centered dialog on mobile, with touch ghost-click protection",
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.esm.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "node build.js",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "react",
+        "confirm",
+        "confirmation",
+        "popper",
+        "dialog",
+        "mui",
+        "material-ui"
+    ],
+    "author": "김영진 (Kim Young Jin) <ehfuse@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ehfuse/mui-confirm-action.git"
+    },
+    "publishConfig": {
+        "access": "restricted"
+    },
+    "peerDependencies": {
+        "@emotion/react": "^11.0.0",
+        "@emotion/styled": "^11.0.0",
+        "@mui/material": "^5.0.0 || ^6.0.0 || ^7.0.0",
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+    },
+    "devDependencies": {
+        "@emotion/react": "^11.13.3",
+        "@emotion/styled": "^11.13.0",
+        "@mui/material": "^7.3.5",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0",
+        "esbuild": "^0.24.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "typescript": "^5.6.3"
+    }
+}
