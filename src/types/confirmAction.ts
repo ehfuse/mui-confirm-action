@@ -19,8 +19,8 @@ export interface ConfirmActionPopperProps {
     minHeight?: number; // 팝퍼 최소 높이(데스크탑)
     titleFontSize?: number; // 제목 폰트 크기(모바일은 이 값과 19 중 큰 값)
     actionFontSize?: number; // 버튼 폰트 크기(모바일은 이 값과 19 중 큰 값)
-    actionMinHeight?: number; // 버튼 최소 높이(모바일은 이 값과 56 중 큰 값)
-    actionPaddingY?: number; // 버튼 세로 여백(MUI spacing 단위 — 모바일은 이 값과 1.5 중 큰 값)
+    actionMinHeight?: number; // 버튼 최소 높이(모바일은 이 값과 64 중 큰 값)
+    actionPaddingY?: number; // 버튼 세로 여백(MUI spacing 단위 — 모바일은 이 값과 2 중 큰 값)
     zIndex?: number; // z-index
     isMobile?: boolean; // 모바일 판정 강제(미지정이면 MUI lg 미만을 모바일로 본다)
     onCancel: () => void; // 취소

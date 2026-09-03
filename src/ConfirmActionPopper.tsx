@@ -90,7 +90,9 @@ export function ConfirmActionPopper({
     const detectedMobile = useIsMobile();
     const mobile = isMobile ?? detectedMobile;
     // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 호출부가 더 크게
-    // 지정하지 않았으면 제목 19 / 버튼 19·최소높이 56px·세로여백 1.5 로 키운다(데스크탑 팝퍼는 그대로).
+    // 지정하지 않았으면 제목 19 / 버튼 19·최소높이 64px·세로여백 2 로 키운다(데스크탑 팝퍼는 그대로).
+    // ⚠️ 세로여백만 올리면 눈에 띄지 않는다 — 여백+글자 높이가 최소높이를 넘어야 실제로 커진다.
+    // 19px 글자(줄높이 ~28px) + 여백 2(16px×2) = 60px 이라 최소높이도 64px 로 함께 올린다.
     const body = (
         <ConfirmActionBody
             title={title}
@@ -99,8 +101,8 @@ export function ConfirmActionPopper({
             cancelText={cancelText}
             titleFontSize={mobile ? Math.max(titleFontSize, 19) : titleFontSize}
             actionFontSize={mobile ? Math.max(actionFontSize, 19) : actionFontSize}
-            actionMinHeight={mobile ? Math.max(actionMinHeight, 56) : actionMinHeight}
-            actionPaddingY={mobile ? Math.max(actionPaddingY, 1.5) : actionPaddingY}
+            actionMinHeight={mobile ? Math.max(actionMinHeight, 64) : actionMinHeight}
+            actionPaddingY={mobile ? Math.max(actionPaddingY, 2) : actionPaddingY}
             onCancel={onCancel}
             onConfirm={onConfirm}
         />
