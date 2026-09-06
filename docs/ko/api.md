@@ -87,3 +87,13 @@ function swallowGhostClick(): void;
 
 - [시작하기](./getting-started.md)
 - [예제](./example.md)
+
+## ConfirmActionProvider
+
+호스트 앱의 모바일 판정을 하위 `ConfirmActionPopper` 전체에 한 번 내려준다. 우선순위: `isMobile` prop > Provider 값 > 패키지 자체 판정(MUI lg 미만). Provider 가 없어도 종전과 같이 동작한다.
+
+```tsx
+<ConfirmActionProvider isMobile={useIsMobile()}>
+    <App />
+</ConfirmActionProvider>
+```

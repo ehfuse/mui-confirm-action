@@ -6,6 +6,7 @@
 
 import { Button, ClickAwayListener, Dialog, Paper, Popper, Typography, Box } from "@mui/material";
 import { useIsMobile } from "./internal/useIsMobile";
+import { useConfirmActionConfig } from "./ConfirmActionProvider";
 import { swallowGhostClick } from "./internal/swallowGhostClick";
 import type { ConfirmActionBodyProps, ConfirmActionPopperProps } from "./types/confirmAction";
 
@@ -86,9 +87,11 @@ export function ConfirmActionPopper({
     onCancel,
     onConfirm,
 }: ConfirmActionPopperProps) {
-    // 소비처가 자체 모바일 판정을 쓰면(레이아웃 기준이 다를 수 있다) 그 값을 우선한다.
+    // 모바일 판정 우선순위: 호출부 prop > 호스트가 ConfirmActionProvider 로 내려준 값 > 패키지 자체 판정(lg 미만).
+    // 앱마다 레이아웃 기준이 달라(768px / lg …) 호스트가 한 번 내려주는 길이 있어야 소비처마다 래퍼를 만들지 않는다.
     const detectedMobile = useIsMobile();
-    const mobile = isMobile ?? detectedMobile;
+    const { isMobile: providedMobile } = useConfirmActionConfig();
+    const mobile = isMobile ?? providedMobile ?? detectedMobile;
     // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 호출부가 더 크게
     // 지정하지 않았으면 제목 19 / 버튼 19·최소높이 64px·세로여백 2 로 키운다(데스크탑 팝퍼는 그대로).
     // ⚠️ 세로여백만 올리면 눈에 띄지 않는다 — 여백+글자 높이가 최소높이를 넘어야 실제로 커진다.

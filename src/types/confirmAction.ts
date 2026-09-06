@@ -22,9 +22,19 @@ export interface ConfirmActionPopperProps {
     actionMinHeight?: number; // 버튼 최소 높이(모바일은 이 값과 64 중 큰 값)
     actionPaddingY?: number; // 버튼 세로 여백(MUI spacing 단위 — 모바일은 이 값과 2 중 큰 값)
     zIndex?: number; // z-index
-    isMobile?: boolean; // 모바일 판정 강제(미지정이면 MUI lg 미만을 모바일로 본다)
+    isMobile?: boolean; // 모바일 판정 강제(미지정이면 ConfirmActionProvider 값, 그것도 없으면 MUI lg 미만을 모바일로 본다)
     onCancel: () => void; // 취소
     onConfirm: () => void; // 확인
+}
+
+/** ConfirmActionProvider 가 하위에 내려주는 설정이다. */
+export interface ConfirmActionConfig {
+    isMobile?: boolean; // 호스트 앱의 모바일 판정(미지정이면 팝퍼가 MUI lg 미만으로 스스로 판정)
+}
+
+/** ConfirmActionProvider 속성이다. */
+export interface ConfirmActionProviderProps extends ConfirmActionConfig {
+    children: ReactNode;
 }
 
 /** 확인 본문(제목 + 추가 콘텐츠 + 취소/확인 버튼) 속성이다 — 팝퍼/다이얼로그 공용 내부 조각. */

@@ -44,6 +44,19 @@ interface ConfirmActionPopperProps {
 }
 
 function swallowGhostClick(): void;
+
+/** 호스트 앱의 모바일 판정을 하위 ConfirmActionPopper 전체에 한 번 내려준다(prop > Provider > MUI lg 미만). */
+function ConfirmActionProvider(props: { isMobile?: boolean; children: React.ReactNode }): JSX.Element;
+```
+
+### 호스트 앱의 모바일 기준 주입
+
+앱마다 "모바일" 기준이 다르면(예: 768px 레이아웃 전환) 루트에서 한 번만 내려준다. 소비처는 래퍼 없이 패키지를 바로 쓴다.
+
+```tsx
+<ConfirmActionProvider isMobile={useIsMobile()}>
+    <App />
+</ConfirmActionProvider>
 ```
 
 ## 문서
