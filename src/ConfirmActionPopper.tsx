@@ -104,8 +104,9 @@ export function ConfirmActionPopper({
             cancelText={cancelText}
             titleFontSize={mobile ? Math.max(titleFontSize, 19) : titleFontSize}
             actionFontSize={mobile ? Math.max(actionFontSize, 19) : actionFontSize}
-            actionMinHeight={mobile ? Math.max(actionMinHeight, 64) : actionMinHeight}
-            actionPaddingY={mobile ? Math.max(actionPaddingY, 2) : actionPaddingY}
+            // 모바일 단추는 52px(0.1.6 — 전에는 64px 라 확인 창의 절반이 단추였다). 손가락으로 누르기에는 48px 이상이면 넉넉하다.
+            actionMinHeight={mobile ? Math.max(actionMinHeight, 52) : actionMinHeight}
+            actionPaddingY={mobile ? Math.max(actionPaddingY, 1.25) : actionPaddingY}
             onCancel={onCancel}
             onConfirm={onConfirm}
         />
