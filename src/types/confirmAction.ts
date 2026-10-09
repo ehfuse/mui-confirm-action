@@ -17,8 +17,10 @@ export interface ConfirmActionPopperProps {
     placement?: PopperProps["placement"]; // 팝퍼 배치(데스크탑)
     minWidth?: number; // 팝퍼 최소 폭(데스크탑)
     minHeight?: number; // 팝퍼 최소 높이(데스크탑)
-    titleFontSize?: number; // 제목 폰트 크기(모바일은 이 값과 19 중 큰 값)
-    actionFontSize?: number; // 버튼 폰트 크기(모바일은 이 값과 19 중 큰 값)
+    titleFontSize?: number; // 제목 폰트 크기(데스크탑 팝퍼)
+    actionFontSize?: number; // 버튼 폰트 크기(데스크탑 팝퍼)
+    mobileTitleFontSize?: number; // 모바일 다이얼로그의 제목 폰트 크기(px) — 미지정이면 ConfirmActionProvider 값, 그것도 없으면 19
+    mobileActionFontSize?: number; // 모바일 다이얼로그의 버튼 폰트 크기(px) — 미지정이면 ConfirmActionProvider 값, 그것도 없으면 19
     actionMinHeight?: number; // 버튼 최소 높이(데스크탑 팝퍼)
     actionPaddingY?: number; // 버튼 세로 여백(MUI spacing 단위 — 데스크탑 팝퍼)
     mobileActionHeight?: number; // 모바일 다이얼로그의 버튼 높이(px) — 미지정이면 ConfirmActionProvider 값, 그것도 없으면 55
@@ -32,6 +34,8 @@ export interface ConfirmActionPopperProps {
 export interface ConfirmActionConfig {
     isMobile?: boolean; // 호스트 앱의 모바일 판정(미지정이면 팝퍼가 MUI lg 미만으로 스스로 판정)
     mobileActionHeight?: number; // 모바일 다이얼로그의 버튼 높이(px, 앱 전체 기본값 — 미지정이면 55)
+    mobileTitleFontSize?: number; // 모바일 다이얼로그의 제목 폰트 크기(px, 앱 전체 기본값 — 미지정이면 19)
+    mobileActionFontSize?: number; // 모바일 다이얼로그의 버튼 폰트 크기(px, 앱 전체 기본값 — 미지정이면 19)
 }
 
 /** ConfirmActionProvider 속성이다. */

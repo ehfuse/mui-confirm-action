@@ -74,6 +74,8 @@ function ConfirmActionBody({
 
 /** 모바일 다이얼로그의 버튼 높이 기본값(px) — 손가락으로 누르기 넉넉하면서 창을 차지하지 않는 높이. */
 const DEFAULT_MOBILE_ACTION_HEIGHT = 55;
+/** 모바일 다이얼로그의 제목·버튼 글자 크기 기본값(px). */
+const DEFAULT_MOBILE_FONT_SIZE = 19;
 
 /** 공통 확인 UI 를 렌더링한다. */
 export function ConfirmActionPopper({
@@ -93,27 +95,33 @@ export function ConfirmActionPopper({
     zIndex = 1300,
     isMobile,
     mobileActionHeight,
+    mobileTitleFontSize,
+    mobileActionFontSize,
     onCancel,
     onConfirm,
 }: ConfirmActionPopperProps) {
     // 모바일 판정 우선순위: 호출부 prop > 호스트가 ConfirmActionProvider 로 내려준 값 > 패키지 자체 판정(lg 미만).
     // 앱마다 레이아웃 기준이 달라(768px / lg …) 호스트가 한 번 내려주는 길이 있어야 소비처마다 래퍼를 만들지 않는다.
     const detectedMobile = useIsMobile();
-    const { isMobile: providedMobile, mobileActionHeight: providedMobileActionHeight } = useConfirmActionConfig();
+    const provided = useConfirmActionConfig();
+    const providedMobile = provided.isMobile;
     const mobile = isMobile ?? providedMobile ?? detectedMobile;
-    // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 제목·버튼 글자를 19 로 키우고
+    // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 제목·버튼 글자를 키우고(기본 19)
     // 버튼 높이를 못 박는다(데스크탑 팝퍼는 그대로). 높이는 호출부 prop > Provider 값 > 기본 55px 순으로 정한다(0.1.7).
     // 0.1.5 까지는 64px 이상이라 확인 창의 절반이 버튼이었다. 최소 높이·여백으로 키우면 글자 줄 높이에 따라 실제 높이가 달라져,
     // 앱이 "몇 px" 로 맞출 수 없어서 높이를 직접 받는다.
-    const resolvedMobileActionHeight = mobileActionHeight ?? providedMobileActionHeight ?? DEFAULT_MOBILE_ACTION_HEIGHT;
+    // 글자 크기도 같은 순서로 정한다(0.1.8) — 전에는 "지정값과 19 중 큰 값" 이라 19 아래로는 줄일 수 없었다.
+    const resolvedMobileActionHeight = mobileActionHeight ?? provided.mobileActionHeight ?? DEFAULT_MOBILE_ACTION_HEIGHT;
+    const resolvedMobileTitleFontSize = mobileTitleFontSize ?? provided.mobileTitleFontSize ?? DEFAULT_MOBILE_FONT_SIZE;
+    const resolvedMobileActionFontSize = mobileActionFontSize ?? provided.mobileActionFontSize ?? DEFAULT_MOBILE_FONT_SIZE;
     const body = (
         <ConfirmActionBody
             title={title}
             content={content}
             confirmText={confirmText}
             cancelText={cancelText}
-            titleFontSize={mobile ? Math.max(titleFontSize, 19) : titleFontSize}
-            actionFontSize={mobile ? Math.max(actionFontSize, 19) : actionFontSize}
+            titleFontSize={mobile ? resolvedMobileTitleFontSize : titleFontSize}
+            actionFontSize={mobile ? resolvedMobileActionFontSize : actionFontSize}
             actionMinHeight={actionMinHeight}
             actionPaddingY={actionPaddingY}
             actionHeight={mobile ? resolvedMobileActionHeight : undefined}

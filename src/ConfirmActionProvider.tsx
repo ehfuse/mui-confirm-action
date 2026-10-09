@@ -17,8 +17,17 @@ import type { ConfirmActionConfig, ConfirmActionProviderProps } from "./types/co
 const ConfirmActionContext = createContext<ConfirmActionConfig>({});
 
 /** 호스트의 모바일 판정을 하위 ConfirmActionPopper 전체에 내려준다. */
-export function ConfirmActionProvider({ isMobile, mobileActionHeight, children }: ConfirmActionProviderProps) {
-    const value = useMemo<ConfirmActionConfig>(() => ({ isMobile, mobileActionHeight }), [isMobile, mobileActionHeight]);
+export function ConfirmActionProvider({
+    isMobile,
+    mobileActionHeight,
+    mobileTitleFontSize,
+    mobileActionFontSize,
+    children,
+}: ConfirmActionProviderProps) {
+    const value = useMemo<ConfirmActionConfig>(
+        () => ({ isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize }),
+        [isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize]
+    );
     return <ConfirmActionContext.Provider value={value}>{children}</ConfirmActionContext.Provider>;
 }
 
