@@ -19,8 +19,9 @@ export interface ConfirmActionPopperProps {
     minHeight?: number; // 팝퍼 최소 높이(데스크탑)
     titleFontSize?: number; // 제목 폰트 크기(모바일은 이 값과 19 중 큰 값)
     actionFontSize?: number; // 버튼 폰트 크기(모바일은 이 값과 19 중 큰 값)
-    actionMinHeight?: number; // 버튼 최소 높이(모바일은 이 값과 64 중 큰 값)
-    actionPaddingY?: number; // 버튼 세로 여백(MUI spacing 단위 — 모바일은 이 값과 2 중 큰 값)
+    actionMinHeight?: number; // 버튼 최소 높이(데스크탑 팝퍼)
+    actionPaddingY?: number; // 버튼 세로 여백(MUI spacing 단위 — 데스크탑 팝퍼)
+    mobileActionHeight?: number; // 모바일 다이얼로그의 버튼 높이(px) — 미지정이면 ConfirmActionProvider 값, 그것도 없으면 55
     zIndex?: number; // z-index
     isMobile?: boolean; // 모바일 판정 강제(미지정이면 ConfirmActionProvider 값, 그것도 없으면 MUI lg 미만을 모바일로 본다)
     onCancel: () => void; // 취소
@@ -30,6 +31,7 @@ export interface ConfirmActionPopperProps {
 /** ConfirmActionProvider 가 하위에 내려주는 설정이다. */
 export interface ConfirmActionConfig {
     isMobile?: boolean; // 호스트 앱의 모바일 판정(미지정이면 팝퍼가 MUI lg 미만으로 스스로 판정)
+    mobileActionHeight?: number; // 모바일 다이얼로그의 버튼 높이(px, 앱 전체 기본값 — 미지정이면 55)
 }
 
 /** ConfirmActionProvider 속성이다. */
@@ -47,6 +49,7 @@ export interface ConfirmActionBodyProps {
     actionFontSize: number; // 버튼 폰트 크기
     actionMinHeight: number; // 버튼 최소 높이
     actionPaddingY: number; // 버튼 세로 여백(MUI spacing 단위)
+    actionHeight?: number; // 버튼 높이를 못 박는다(모바일) — 주면 최소 높이·세로 여백 대신 이 값이 높이가 된다
     onCancel: () => void; // 취소
     onConfirm: () => void; // 확인
 }

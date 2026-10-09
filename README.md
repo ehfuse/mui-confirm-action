@@ -39,6 +39,7 @@ interface ConfirmActionPopperProps {
     actionPaddingY?: number;
     zIndex?: number;
     isMobile?: boolean;
+    mobileActionHeight?: number; // 모바일 다이얼로그의 버튼 높이(px, 기본 55 — Provider 로 앱 전체 기본값을 줄 수도 있다)
     onCancel: () => void;
     onConfirm: () => void;
 }
@@ -46,7 +47,7 @@ interface ConfirmActionPopperProps {
 function swallowGhostClick(): void;
 
 /** 호스트 앱의 모바일 판정을 하위 ConfirmActionPopper 전체에 한 번 내려준다(prop > Provider > MUI lg 미만). */
-function ConfirmActionProvider(props: { isMobile?: boolean; children: React.ReactNode }): JSX.Element;
+function ConfirmActionProvider(props: { isMobile?: boolean; mobileActionHeight?: number; children: React.ReactNode }): JSX.Element;
 ```
 
 ### 호스트 앱의 모바일 기준 주입

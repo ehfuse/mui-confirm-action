@@ -20,9 +20,14 @@ function ConfirmActionBody({
     actionFontSize,
     actionMinHeight,
     actionPaddingY,
+    actionHeight,
     onCancel,
     onConfirm,
 }: ConfirmActionBodyProps) {
+    // 높이를 못 박으면(모바일) 세로 여백을 0 으로 둔다 — 여백 + 글자 줄 높이가 지정한 높이를 넘겨 버튼이 더 커지지 않게.
+    const actionSx = actionHeight
+        ? { fontSize: actionFontSize, height: actionHeight, minHeight: actionHeight, py: 0, fontWeight: 700 }
+        : { fontSize: actionFontSize, minHeight: actionMinHeight, py: actionPaddingY, fontWeight: 700 };
     /** 확인/취소 — 잔여 클릭을 삼킨 뒤 콜백을 실행한다(닫힌 자리의 요소가 다시 눌리지 않게). */
     const handleCancel = () => {
         swallowGhostClick();
@@ -48,7 +53,7 @@ function ConfirmActionBody({
                     color="inherit"
                     onClick={handleCancel}
                     fullWidth
-                    sx={{ fontSize: actionFontSize, minHeight: actionMinHeight, py: actionPaddingY, fontWeight: 700 }}
+                    sx={actionSx}
                 >
                     {cancelText}
                 </Button>
@@ -58,7 +63,7 @@ function ConfirmActionBody({
                     color="primary"
                     onClick={handleConfirm}
                     fullWidth
-                    sx={{ fontSize: actionFontSize, minHeight: actionMinHeight, py: actionPaddingY, fontWeight: 700 }}
+                    sx={actionSx}
                 >
                     {confirmText}
                 </Button>
@@ -66,6 +71,9 @@ function ConfirmActionBody({
         </>
     );
 }
+
+/** 모바일 다이얼로그의 버튼 높이 기본값(px) — 손가락으로 누르기 넉넉하면서 창을 차지하지 않는 높이. */
+const DEFAULT_MOBILE_ACTION_HEIGHT = 55;
 
 /** 공통 확인 UI 를 렌더링한다. */
 export function ConfirmActionPopper({
@@ -84,18 +92,20 @@ export function ConfirmActionPopper({
     actionPaddingY = 1,
     zIndex = 1300,
     isMobile,
+    mobileActionHeight,
     onCancel,
     onConfirm,
 }: ConfirmActionPopperProps) {
     // 모바일 판정 우선순위: 호출부 prop > 호스트가 ConfirmActionProvider 로 내려준 값 > 패키지 자체 판정(lg 미만).
     // 앱마다 레이아웃 기준이 달라(768px / lg …) 호스트가 한 번 내려주는 길이 있어야 소비처마다 래퍼를 만들지 않는다.
     const detectedMobile = useIsMobile();
-    const { isMobile: providedMobile } = useConfirmActionConfig();
+    const { isMobile: providedMobile, mobileActionHeight: providedMobileActionHeight } = useConfirmActionConfig();
     const mobile = isMobile ?? providedMobile ?? detectedMobile;
-    // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 호출부가 더 크게
-    // 지정하지 않았으면 제목 19 / 버튼 19·최소높이 64px·세로여백 2 로 키운다(데스크탑 팝퍼는 그대로).
-    // ⚠️ 세로여백만 올리면 눈에 띄지 않는다 — 여백+글자 높이가 최소높이를 넘어야 실제로 커진다.
-    // 19px 글자(줄높이 ~28px) + 여백 2(16px×2) = 60px 이라 최소높이도 64px 로 함께 올린다.
+    // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 제목·버튼 글자를 19 로 키우고
+    // 버튼 높이를 못 박는다(데스크탑 팝퍼는 그대로). 높이는 호출부 prop > Provider 값 > 기본 55px 순으로 정한다(0.1.7).
+    // 0.1.5 까지는 64px 이상이라 확인 창의 절반이 버튼이었다. 최소 높이·여백으로 키우면 글자 줄 높이에 따라 실제 높이가 달라져,
+    // 앱이 "몇 px" 로 맞출 수 없어서 높이를 직접 받는다.
+    const resolvedMobileActionHeight = mobileActionHeight ?? providedMobileActionHeight ?? DEFAULT_MOBILE_ACTION_HEIGHT;
     const body = (
         <ConfirmActionBody
             title={title}
@@ -104,9 +114,9 @@ export function ConfirmActionPopper({
             cancelText={cancelText}
             titleFontSize={mobile ? Math.max(titleFontSize, 19) : titleFontSize}
             actionFontSize={mobile ? Math.max(actionFontSize, 19) : actionFontSize}
-            // 모바일 단추는 52px(0.1.6 — 전에는 64px 라 확인 창의 절반이 단추였다). 손가락으로 누르기에는 48px 이상이면 넉넉하다.
-            actionMinHeight={mobile ? Math.max(actionMinHeight, 52) : actionMinHeight}
-            actionPaddingY={mobile ? Math.max(actionPaddingY, 1.25) : actionPaddingY}
+            actionMinHeight={actionMinHeight}
+            actionPaddingY={actionPaddingY}
+            actionHeight={mobile ? resolvedMobileActionHeight : undefined}
             onCancel={onCancel}
             onConfirm={onConfirm}
         />
