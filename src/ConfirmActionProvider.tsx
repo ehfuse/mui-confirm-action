@@ -22,11 +22,12 @@ export function ConfirmActionProvider({
     mobileActionHeight,
     mobileTitleFontSize,
     mobileActionFontSize,
+    maxWidth,
     children,
 }: ConfirmActionProviderProps) {
     const value = useMemo<ConfirmActionConfig>(
-        () => ({ isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize }),
-        [isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize]
+        () => ({ isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth }),
+        [isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth]
     );
     return <ConfirmActionContext.Provider value={value}>{children}</ConfirmActionContext.Provider>;
 }

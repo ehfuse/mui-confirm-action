@@ -16,6 +16,7 @@ export interface ConfirmActionPopperProps {
     cancelText?: string; // 취소 버튼 문구
     placement?: PopperProps["placement"]; // 팝퍼 배치(데스크탑)
     minWidth?: number; // 팝퍼 최소 폭(데스크탑)
+    maxWidth?: number; // 팝퍼 최대 폭(데스크탑, px) — 미지정이면 ConfirmActionProvider 값, 그것도 없으면 제한 없음(0.1.9)
     minHeight?: number; // 팝퍼 최소 높이(데스크탑)
     titleFontSize?: number; // 제목 폰트 크기(데스크탑 팝퍼)
     actionFontSize?: number; // 버튼 폰트 크기(데스크탑 팝퍼)
@@ -36,6 +37,7 @@ export interface ConfirmActionConfig {
     mobileActionHeight?: number; // 모바일 다이얼로그의 버튼 높이(px, 앱 전체 기본값 — 미지정이면 55)
     mobileTitleFontSize?: number; // 모바일 다이얼로그의 제목 폰트 크기(px, 앱 전체 기본값 — 미지정이면 19)
     mobileActionFontSize?: number; // 모바일 다이얼로그의 버튼 폰트 크기(px, 앱 전체 기본값 — 미지정이면 19)
+    maxWidth?: number; // 데스크탑 팝퍼의 최대 폭(px, 앱 전체 기본값 — 미지정이면 제한 없음)
 }
 
 /** ConfirmActionProvider 속성이다. */

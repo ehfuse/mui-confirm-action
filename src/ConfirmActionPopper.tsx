@@ -87,6 +87,7 @@ export function ConfirmActionPopper({
     cancelText = "취소",
     placement = "top",
     minWidth = 160,
+    maxWidth,
     minHeight,
     titleFontSize = 17,
     actionFontSize = 17,
@@ -114,6 +115,9 @@ export function ConfirmActionPopper({
     const resolvedMobileActionHeight = mobileActionHeight ?? provided.mobileActionHeight ?? DEFAULT_MOBILE_ACTION_HEIGHT;
     const resolvedMobileTitleFontSize = mobileTitleFontSize ?? provided.mobileTitleFontSize ?? DEFAULT_MOBILE_FONT_SIZE;
     const resolvedMobileActionFontSize = mobileActionFontSize ?? provided.mobileActionFontSize ?? DEFAULT_MOBILE_FONT_SIZE;
+    // 데스크탑 팝퍼 최대 폭(0.1.9) — 폭을 묶지 않으면 내용 글이 길 때 한 줄로 늘어나 화면 폭만큼 퍼졌다.
+    // 옵션이다: 호출부 prop > Provider 값 > 제한 없음(전과 같다).
+    const resolvedMaxWidth = maxWidth ?? provided.maxWidth;
     const body = (
         <ConfirmActionBody
             title={title}
@@ -171,6 +175,7 @@ export function ConfirmActionPopper({
                         flexDirection: "column",
                         gap: 3,
                         minWidth,
+                        ...(resolvedMaxWidth ? { maxWidth: resolvedMaxWidth } : {}),
                         minHeight,
                         justifyContent: minHeight ? "space-between" : "flex-start",
                     }}
