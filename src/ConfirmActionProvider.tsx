@@ -23,11 +23,16 @@ export function ConfirmActionProvider({
     mobileTitleFontSize,
     mobileActionFontSize,
     maxWidth,
+    titleFontSize,
+    actionFontSize,
+    actionMinHeight,
+    contentFontSize,
     children,
 }: ConfirmActionProviderProps) {
+    // 받은 설정을 하나씩 실어 내린다 — 0.1.10 에서 데스크탑 크기 키를 더하고 여기에 빠뜨려 앱이 준 값이 팝퍼까지 닿지 않았다.
     const value = useMemo<ConfirmActionConfig>(
-        () => ({ isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth }),
-        [isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth]
+        () => ({ isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth, titleFontSize, actionFontSize, actionMinHeight, contentFontSize }),
+        [isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth, titleFontSize, actionFontSize, actionMinHeight, contentFontSize]
     );
     return <ConfirmActionContext.Provider value={value}>{children}</ConfirmActionContext.Provider>;
 }
