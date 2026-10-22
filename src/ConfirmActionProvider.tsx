@@ -29,11 +29,27 @@ export function ConfirmActionProvider({
     contentFontSize,
     children,
 }: ConfirmActionProviderProps) {
-    // 받은 설정을 하나씩 실어 내린다 — 0.1.10 에서 데스크탑 크기 키를 더하고 여기에 빠뜨려 앱이 준 값이 팝퍼까지 닿지 않았다.
-    const value = useMemo<ConfirmActionConfig>(
-        () => ({ isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth, titleFontSize, actionFontSize, actionMinHeight, contentFontSize }),
-        [isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth, titleFontSize, actionFontSize, actionMinHeight, contentFontSize]
-    );
+    // 바깥 Provider 가 있으면 그 값이 먼저다(0.1.12) — 앱 루트가 정한 판정 · 크기를, 패키지(업무함 · 메일 UI)가 제 안에 둔 Provider 가
+    // 덮어써 그 화면들의 확인창만 앱 설정을 따르지 않았다. 안쪽 Provider 는 바깥이 정하지 않은 값만 채운다.
+    const parent = useContext(ConfirmActionContext);
+    const value = useMemo<ConfirmActionConfig>(() => {
+        const own: ConfirmActionConfig = {
+            isMobile,
+            mobileActionHeight,
+            mobileTitleFontSize,
+            mobileActionFontSize,
+            maxWidth,
+            titleFontSize,
+            actionFontSize,
+            actionMinHeight,
+            contentFontSize,
+        };
+        const merged: ConfirmActionConfig = { ...own };
+        for (const [key, parentValue] of Object.entries(parent) as [keyof ConfirmActionConfig, unknown][]) {
+            if (parentValue !== undefined) (merged as Record<string, unknown>)[key] = parentValue;
+        }
+        return merged;
+    }, [parent, isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth, titleFontSize, actionFontSize, actionMinHeight, contentFontSize]);
     return <ConfirmActionContext.Provider value={value}>{children}</ConfirmActionContext.Provider>;
 }
 
