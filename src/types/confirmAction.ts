@@ -38,6 +38,11 @@ export interface ConfirmActionConfig {
     mobileTitleFontSize?: number; // 모바일 다이얼로그의 제목 폰트 크기(px, 앱 전체 기본값 — 미지정이면 19)
     mobileActionFontSize?: number; // 모바일 다이얼로그의 버튼 폰트 크기(px, 앱 전체 기본값 — 미지정이면 19)
     maxWidth?: number; // 데스크탑 팝퍼의 최대 폭(px, 앱 전체 기본값 — 미지정이면 제한 없음)
+    // 데스크탑 팝퍼의 앱 전체 기본 크기(0.1.10) — 호출부 prop 이 있으면 그것이 먼저다. 미지정이면 제목 · 버튼 17px, 버튼 높이 44.
+    titleFontSize?: number; // 제목 폰트 크기(px)
+    actionFontSize?: number; // 버튼 폰트 크기(px)
+    actionMinHeight?: number; // 버튼 최소 높이(px)
+    contentFontSize?: number; // 추가 콘텐츠(안내 글 등)의 기본 폰트 크기(px) — 콘텐츠가 제 크기를 정했으면 그것이 이긴다
 }
 
 /** ConfirmActionProvider 속성이다. */
@@ -56,6 +61,7 @@ export interface ConfirmActionBodyProps {
     actionMinHeight: number; // 버튼 최소 높이
     actionPaddingY: number; // 버튼 세로 여백(MUI spacing 단위)
     actionHeight?: number; // 버튼 높이를 못 박는다(모바일) — 주면 최소 높이·세로 여백 대신 이 값이 높이가 된다
+    contentFontSize?: number; // 추가 콘텐츠의 기본 폰트 크기(px) — 없으면 상속
     onCancel: () => void; // 취소
     onConfirm: () => void; // 확인
 }

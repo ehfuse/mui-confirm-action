@@ -21,6 +21,7 @@ function ConfirmActionBody({
     actionMinHeight,
     actionPaddingY,
     actionHeight,
+    contentFontSize,
     onCancel,
     onConfirm,
 }: ConfirmActionBodyProps) {
@@ -45,7 +46,7 @@ function ConfirmActionBody({
             >
                 {title}
             </Typography>
-            {content}
+            {content && contentFontSize ? <Box sx={{ fontSize: contentFontSize }}>{content}</Box> : content}
             <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
                 <Button
                     size="medium"
@@ -89,9 +90,9 @@ export function ConfirmActionPopper({
     minWidth = 160,
     maxWidth,
     minHeight,
-    titleFontSize = 17,
-    actionFontSize = 17,
-    actionMinHeight = 44,
+    titleFontSize,
+    actionFontSize,
+    actionMinHeight,
     actionPaddingY = 1,
     zIndex = 1300,
     isMobile,
@@ -107,6 +108,10 @@ export function ConfirmActionPopper({
     const provided = useConfirmActionConfig();
     const providedMobile = provided.isMobile;
     const mobile = isMobile ?? providedMobile ?? detectedMobile;
+    // 데스크탑 크기 — 호출부 prop > ConfirmActionProvider 기본값 > 패키지 기본값(0.1.10).
+    const desktopTitleFontSize = titleFontSize ?? provided.titleFontSize ?? 17;
+    const desktopActionFontSize = actionFontSize ?? provided.actionFontSize ?? 17;
+    const desktopActionMinHeight = actionMinHeight ?? provided.actionMinHeight ?? 44;
     // 모바일 가운데 다이얼로그는 팝퍼 기본값으로는 작아 손가락으로 누르기 불편하다 — 제목·버튼 글자를 키우고(기본 19)
     // 버튼 높이를 못 박는다(데스크탑 팝퍼는 그대로). 높이는 호출부 prop > Provider 값 > 기본 55px 순으로 정한다(0.1.7).
     // 0.1.5 까지는 64px 이상이라 확인 창의 절반이 버튼이었다. 최소 높이·여백으로 키우면 글자 줄 높이에 따라 실제 높이가 달라져,
@@ -124,9 +129,10 @@ export function ConfirmActionPopper({
             content={content}
             confirmText={confirmText}
             cancelText={cancelText}
-            titleFontSize={mobile ? resolvedMobileTitleFontSize : titleFontSize}
-            actionFontSize={mobile ? resolvedMobileActionFontSize : actionFontSize}
-            actionMinHeight={actionMinHeight}
+            titleFontSize={mobile ? resolvedMobileTitleFontSize : desktopTitleFontSize}
+            actionFontSize={mobile ? resolvedMobileActionFontSize : desktopActionFontSize}
+            actionMinHeight={desktopActionMinHeight}
+            contentFontSize={mobile ? undefined : provided.contentFontSize}
             actionPaddingY={actionPaddingY}
             actionHeight={mobile ? resolvedMobileActionHeight : undefined}
             onCancel={onCancel}
