@@ -42,6 +42,7 @@ export interface ConfirmActionConfig {
     titleFontSize?: number; // 제목 폰트 크기(px)
     actionFontSize?: number; // 버튼 폰트 크기(px)
     actionMinHeight?: number; // 버튼 최소 높이(px)
+    actionPaddingY?: number; // 버튼 세로 여백(MUI spacing 단위 — 기본 1, 0.1.13). 높이는 여백 + 글자 줄이 정하므로 낮추려면 이것도 줄인다
     contentFontSize?: number; // 추가 콘텐츠(안내 글 등)의 기본 폰트 크기(px) — 콘텐츠가 제 크기를 정했으면 그것이 이긴다
 }
 

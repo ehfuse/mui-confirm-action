@@ -26,6 +26,7 @@ export function ConfirmActionProvider({
     titleFontSize,
     actionFontSize,
     actionMinHeight,
+    actionPaddingY,
     contentFontSize,
     children,
 }: ConfirmActionProviderProps) {
@@ -42,6 +43,7 @@ export function ConfirmActionProvider({
             titleFontSize,
             actionFontSize,
             actionMinHeight,
+            actionPaddingY,
             contentFontSize,
         };
         const merged: ConfirmActionConfig = { ...own };
@@ -49,7 +51,7 @@ export function ConfirmActionProvider({
             if (parentValue !== undefined) (merged as Record<string, unknown>)[key] = parentValue;
         }
         return merged;
-    }, [parent, isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth, titleFontSize, actionFontSize, actionMinHeight, contentFontSize]);
+    }, [parent, isMobile, mobileActionHeight, mobileTitleFontSize, mobileActionFontSize, maxWidth, titleFontSize, actionFontSize, actionMinHeight, actionPaddingY, contentFontSize]);
     return <ConfirmActionContext.Provider value={value}>{children}</ConfirmActionContext.Provider>;
 }
 
