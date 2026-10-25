@@ -9,3 +9,6 @@ export type {
     ConfirmActionConfig,
     ConfirmActionProviderProps,
 } from "./types";
+// 화면 문구 언어(기본 한국어 — 2026-10-26)
+export { setMuiConfirmActionLocale, getMuiConfirmActionLocale } from "./i18n";
+export type { MuiConfirmActionLang } from "./i18n";

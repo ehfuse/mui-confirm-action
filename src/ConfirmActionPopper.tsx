@@ -6,6 +6,7 @@
 
 import { Button, ClickAwayListener, Dialog, Paper, Popper, Typography, Box } from "@mui/material";
 import { useIsMobile } from "./internal/useIsMobile";
+import { useI18n } from "./i18n";
 import { useConfirmActionConfig } from "./ConfirmActionProvider";
 import { swallowGhostClick } from "./internal/swallowGhostClick";
 import type { ConfirmActionBodyProps, ConfirmActionPopperProps } from "./types/confirmAction";
@@ -82,10 +83,10 @@ const DEFAULT_MOBILE_FONT_SIZE = 19;
 export function ConfirmActionPopper({
     open,
     anchorEl,
-    title = "확인하시겠습니까?",
+    title,
     content,
-    confirmText = "확인",
-    cancelText = "취소",
+    confirmText,
+    cancelText,
     placement = "top",
     minWidth = 160,
     maxWidth,
@@ -105,6 +106,8 @@ export function ConfirmActionPopper({
     // 모바일 판정 우선순위: 호출부 prop > 호스트가 ConfirmActionProvider 로 내려준 값 > 패키지 자체 판정(lg 미만).
     // 앱마다 레이아웃 기준이 달라(768px / lg …) 호스트가 한 번 내려주는 길이 있어야 소비처마다 래퍼를 만들지 않는다.
     const detectedMobile = useIsMobile();
+    // 기본 문구는 화면 언어로(setMuiConfirmActionLocale) — 호출부가 준 글이 이긴다(0.2.0).
+    const { t } = useI18n();
     const provided = useConfirmActionConfig();
     const providedMobile = provided.isMobile;
     const mobile = isMobile ?? providedMobile ?? detectedMobile;
@@ -126,10 +129,10 @@ export function ConfirmActionPopper({
     const resolvedMaxWidth = maxWidth ?? provided.maxWidth;
     const body = (
         <ConfirmActionBody
-            title={title}
+            title={title ?? t("areYouSure")}
             content={content}
-            confirmText={confirmText}
-            cancelText={cancelText}
+            confirmText={confirmText ?? t("confirm")}
+            cancelText={cancelText ?? t("cancel")}
             titleFontSize={mobile ? resolvedMobileTitleFontSize : desktopTitleFontSize}
             actionFontSize={mobile ? resolvedMobileActionFontSize : desktopActionFontSize}
             actionMinHeight={desktopActionMinHeight}
