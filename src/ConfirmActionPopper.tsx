@@ -175,7 +175,15 @@ export function ConfirmActionPopper({
     }
 
     return (
-        <Popper open={open} anchorEl={anchorEl} placement={placement} sx={{ zIndex }}>
+        <Popper
+            open={open}
+            anchorEl={anchorEl}
+            placement={placement}
+            sx={{ zIndex }}
+            // 자리는 정수 픽셀 · transform 없이(0.2.1) — 기본(GPU transform + 소수 좌표)이면 처음 그린 자리에서 계산된 자리로
+            // 옮기는 사이 글자가 소수 픽셀에 걸려 다시 그려지며 흔들려 보였다(taskham 채팅 단체 채팅 확인 풍선, 2026-11-11).
+            popperOptions={{ modifiers: [{ name: "computeStyles", options: { gpuAcceleration: false, roundOffsets: true } }] }}
+        >
             <ClickAwayListener onClickAway={onCancel}>
                 <Paper
                     elevation={4}
