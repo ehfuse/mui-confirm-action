@@ -5,4 +5,5 @@ export type {
     ConfirmActionBodyProps,
     ConfirmActionConfig,
     ConfirmActionProviderProps,
+    ConfirmActionColor,
 } from "./confirmAction";

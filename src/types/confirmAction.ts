@@ -2,6 +2,10 @@
 
 import type { ReactNode } from "react";
 import type { PopperProps } from "@mui/material/Popper";
+import type { ButtonProps } from "@mui/material/Button";
+
+/** 확인 버튼 색 — MUI Button 의 color 값 그대로("inherit" 는 뺀다 — 취소 버튼과 구별이 안 된다). */
+export type ConfirmActionColor = Exclude<NonNullable<ButtonProps["color"]>, "inherit">;
 
 /** ConfirmActionPopper 속성이다. */
 export interface ConfirmActionPopperProps {
@@ -13,6 +17,8 @@ export interface ConfirmActionPopperProps {
     title?: ReactNode; // 확인 제목
     content?: ReactNode; // 제목과 버튼 사이에 렌더할 추가 콘텐츠(사유 입력칸 등)
     confirmText?: string; // 확인 버튼 문구
+    // 확인 버튼 색(MUI Button color 값, 0.2.2) — 끄기 · 삭제처럼 되돌리기 어려운 확인을 빨강("error")으로. 미지정이면 "primary"(전과 같다).
+    confirmColor?: ConfirmActionColor;
     cancelText?: string; // 취소 버튼 문구
     placement?: PopperProps["placement"]; // 팝퍼 배치(데스크탑)
     minWidth?: number; // 팝퍼 최소 폭(데스크탑)
@@ -56,6 +62,7 @@ export interface ConfirmActionBodyProps {
     title?: ReactNode; // 확인 제목
     content?: ReactNode; // 추가 콘텐츠
     confirmText: string; // 확인 버튼 문구
+    confirmColor: ConfirmActionColor; // 확인 버튼 색
     cancelText: string; // 취소 버튼 문구
     titleFontSize: number; // 제목 폰트 크기
     actionFontSize: number; // 버튼 폰트 크기

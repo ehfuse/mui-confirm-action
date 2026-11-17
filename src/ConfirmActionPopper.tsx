@@ -16,6 +16,7 @@ function ConfirmActionBody({
     title,
     content,
     confirmText,
+    confirmColor,
     cancelText,
     titleFontSize,
     actionFontSize,
@@ -62,7 +63,7 @@ function ConfirmActionBody({
                 <Button
                     size="medium"
                     variant="contained"
-                    color="primary"
+                    color={confirmColor}
                     onClick={handleConfirm}
                     fullWidth
                     sx={actionSx}
@@ -86,6 +87,7 @@ export function ConfirmActionPopper({
     title,
     content,
     confirmText,
+    confirmColor = "primary",
     cancelText,
     placement = "top",
     minWidth = 160,
@@ -132,6 +134,7 @@ export function ConfirmActionPopper({
             title={title ?? t("areYouSure")}
             content={content}
             confirmText={confirmText ?? t("confirm")}
+            confirmColor={confirmColor}
             cancelText={cancelText ?? t("cancel")}
             titleFontSize={mobile ? resolvedMobileTitleFontSize : desktopTitleFontSize}
             actionFontSize={mobile ? resolvedMobileActionFontSize : desktopActionFontSize}

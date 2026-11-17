@@ -29,6 +29,7 @@ interface ConfirmActionPopperProps {
     title?: React.ReactNode;
     content?: React.ReactNode;
     confirmText?: string;
+    confirmColor?: "primary" | "secondary" | "error" | "warning" | "info" | "success"; // 확인 버튼 색(MUI Button color, 기본 "primary" — 0.2.2). 끄기 · 삭제 확인은 "error"
     cancelText?: string;
     placement?: PopperProps["placement"];
     minWidth?: number;
